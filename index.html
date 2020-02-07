@@ -26,6 +26,10 @@
         #map {
             height: 500px;
         }
+
+        #meme {
+        	display: none;
+        }
     }
     </style>
     <title>WHO 理你啊 ! 台灣口罩數量查詢網</title>
@@ -39,11 +43,12 @@
                 <input id="search" class="form-control rounded-0" type="text">
                 <button id="btn-search" class="btn btn-primary btn-mid rounded-0">搜尋藥局</button>
             </div>
-            <div id="search-result">
+            <div id="search-result" style="height: 200px;overflow:scroll;">
             </div>
+            <img src="daway.jpg" alt="daway" id="meme" class="w-100 mt-3" style="border:1px solid black" onmouseover="mouseOver()" onmouseout="mouseOut()">
         </div>
         <div class="col-md-9">
-            <div id="map" style="border:2px solid black"></div>
+            <div id="map" style="border:1px solid black"></div>
             <article class="mx-3">
                 <div class="row">
                     <div class="col-md mt-3">
@@ -68,6 +73,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet-src.js"></script>
     <script src="Control.FullScreen.js"></script>
     <script>
+    // meme hover
+    function mouseOver() {
+        document.getElementById('meme').src = 'way.jpg';
+    };
+
+    function mouseOut() {
+        document.getElementById('meme').src = 'daway.jpg';
+    };
+
+    document.getElementById('meme').addEventListener('onmouseover', () => {
+        console.log(123)
+    })
     // 地圖設定
     let base = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png', {
         minZoom: 7,
