@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+    #map {
+        height: 800px;
+    }
+
+    @media (max-width: 576px) {
+        #map {
+            height: 200px;
+        }
+
+        ;
+    }
+
+    @media (max-width: 992px) {
+        #map {
+            height: 500px;
+        }
+
+        ;
+    }
+    </style>
+    <title>WHO 理你啊 !</title>
+</head>
+
+<body class="container">
+    <h1 class="text-center my-3">WHO 理你啊 ! 台灣口罩數量查詢網</h1>
+    <div id="map" style="border:2px solid black"></div>
+    <article class="m-3">
+        <div class="row">
+            <div class="col-md">
+                <div class="font-weight-bolder">判定條件 -</div>
+                <div>口罩數為 0 : 紅標</div>
+                <div>口罩數小於 100 : 黃標</div>
+                <div>口罩數大於 100 : 綠標</div>
+            </div>
+            <div class="col-md">
+                <div class="font-weight-bolder">下載區 -</div>
+                <a href="http://data.nhi.gov.tw/Datasets/Download.ashx?rid=A21030000I-D50001-001&l=https://data.nhi.gov.tw/resource/mask/maskdata.csv" class="btn btn-success mt-1" title="點擊下載">健保特約機構口罩剩餘數量明細清單.CSV</a>
+            </div>
+        </div>
+    </article>
+    <div class="text-center mt-5 mb-1">感謝中華民國行政院政務委員唐鳳先生的推動</div>
+    <footer class="bg-secondary text-center py-2">
+        <div class="text-white">維護者 : <a href="https://github.com/TWyeehome" class="text-white" title="安安" target="_blank">Michael</a></div>
+        <div class="text-white">email : <a href="mailto:k123456789370@yahoo.com.tw" class="text-white">k123456789370@yahoo.com.tw</a></div>
+        <div class="text-white">資料來源 : 健保署</div>
+    </footer>
+    <script src="NPTest.json"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet-src.js.map"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet-src.js"></script>
+    <script>
+    var map = L.map("map");
+
+    L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png', {
+        minZoom: 7,
+        maxZoom: 18
+    }).addTo(map);
+
+    map.setView([23.817844, 119.990917], 5);
+
+    let myRenderer = L.canvas({ padding: 0 });
+
+    let circleMarkerOptions = null;
+    let infoStr = '';
+    let getMask = new XMLHttpRequest();
+    getMask.open('GET', 'https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json?fbclid=IwAR2vd7FqcvO-XHnvXfFLwzb54ulKEEUc1Is0FN3UepRU_Z2Wk49fa50o1C4', true);
+    getMask.send(null);
+    getMask.onload = () => {
+        let getMaskData = JSON.parse(getMask.responseText);
+        console.log(getMaskData.features);
+        console.log(getMaskData.features.length);
+        console.log(getMaskData.features[0].properties.name);
+
+
+        for (var i = 0; i < getMaskData.features.length; i++) {
+            // 內文
+            infoStr =
+                '<div>名稱 : ' + getMaskData.features[i].properties.name + '</div>' +
+                '<div class="my-1">電話 : ' + getMaskData.features[i].properties.phone + '</div>' +
+                '<div>地址 : ' + getMaskData.features[i].properties.address + '</div>' +
+                '<div class="my-1">成人口罩數量 : ' + getMaskData.features[i].properties.mask_adult + '</div>' +
+                '<div>兒童口罩數量 : ' + getMaskData.features[i].properties.mask_child + '</div>' +
+                '<div class="my-1">營業時間 : ' + getMaskData.features[i].properties.available + '</div>' +
+                '<div>備註 : ' + getMaskData.features[i].properties.note + '</div>';
+
+            // marker 顏色判定
+            if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child == 0) {
+                circleMarkerOptions = {
+                    weight: 1,
+                    fillColor: "red",
+                    color: "black",
+                    opacity: 1
+                };
+                L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr)
+            } else if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child < 100) {
+                circleMarkerOptions = {
+                    weight: 1,
+                    fillColor: "yellow",
+                    color: "black",
+                    opacity: 1
+                };
+                L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr)
+            } else {
+                circleMarkerOptions = {
+                    weight: 1,
+                    fillColor: "green",
+                    color: "black",
+                    opacity: 1
+                };
+                L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr)
+            };
+        };
+
+        function getRandomLatLng() {
+            return [
+                getMaskData.features[i].geometry.coordinates[1],
+                getMaskData.features[i].geometry.coordinates[0]
+            ];
+        };
+    };
+
+    // layer
+    L.Control.Watermark = L.Control.extend({
+        onAdd: function(map) {
+            var img = L.DomUtil.create('div');
+
+            img.src = '../../docs/images/logo.png';
+            img.style.width = '200px';
+
+            return img;
+        },
+
+        onRemove: function(map) {
+            // Nothing to do here
+        }
+    });
+
+    L.control.watermark = function(opts) {
+        return new L.Control.Watermark(opts);
+    }
+
+    L.control.watermark({ position: 'bottomleft' }).addTo(map);
+    </script>
+</body>
+
+</html>
