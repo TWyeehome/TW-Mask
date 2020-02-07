@@ -13,7 +13,7 @@
     <meta property="og:image" content="WHO.jpg">
     <style>
         #map {
-        height: 800px;
+        height: 600px;
     }
 
     @media (max-width: 576px) {
@@ -37,27 +37,27 @@
         <div class="col-md-3 mb-3">
             <div class="d-flex mb-2">
                 <input id="search" class="form-control" type="text">
-                <button id="btn-search" class="btn btn-primary btn-mid px-2">搜尋藥局</button>
+                <button id="btn-search" class="btn btn-primary btn-mid">搜尋藥局</button>
             </div>
             <div id="search-result">
             </div>
         </div>
         <div class="col-md-9">
             <div id="map" style="border:2px solid black"></div>
+            <article class="mx-3">
+                <div class="row">
+                    <div class="col-md mt-3">
+                        <div class="font-weight-bolder">下載區 -</div>
+                        <a href="http://data.nhi.gov.tw/Datasets/Download.ashx?rid=A21030000I-D50001-001&l=https://data.nhi.gov.tw/resource/mask/maskdata.csv" class="btn btn-success mt-1 px-2" title="點擊下載">健保特約機構口罩剩餘數量明細清單.CSV</a>
+                    </div>
+                    <div class="col-md mt-3">
+                        <div class="font-weight-bolder">資料更新頻率 -</div>
+                        <div class="mt-1">每 30 秒一次</div>
+                    </div>
+                </div>
+            </article>
         </div>
     </div>
-    <article class="mx-3">
-        <div class="row">
-            <div class="col-md mt-3">
-                <div class="font-weight-bolder">下載區 -</div>
-                <a href="http://data.nhi.gov.tw/Datasets/Download.ashx?rid=A21030000I-D50001-001&l=https://data.nhi.gov.tw/resource/mask/maskdata.csv" class="btn btn-success mt-1 px-2" title="點擊下載">健保特約機構口罩剩餘數量明細清單.CSV</a>
-            </div>
-            <div class="col-md mt-3">
-                <div class="font-weight-bolder">資料更新頻率 -</div>
-                <div class="mt-1">每 30 秒一次</div>
-            </div>
-        </div>
-    </article>
     <div class="text-center mt-5 mb-1">感謝中華民國行政院政務委員唐鳳的推動</div>
     <footer class="bg-secondary text-center py-2">
         <div class="text-white">維護者 : <a href="https://github.com/TWyeehome" class="text-white" title="安安" target="_blank">Michael</a></div>
@@ -106,16 +106,18 @@
 
         // 搜尋藥局
         document.getElementById('btn-search').addEventListener('click', () => {
-        	map.setView([23.817844, 119.990917], 5);
             if (document.getElementById('search').value == '') {
                 alert('請輸入關鍵字齁!');
                 return
             };
+            // 地圖回歸中心點
+            map.setView([23.817844, 119.990917], 5);
+
             // 開始搜尋
             console.log('開始搜尋');
             let result = '';
             for (let num = 0; num < getMaskData.features.length; num++) {
-                if (getMaskData.features[num].properties.name.indexOf(document.getElementById('search').value) == 0) {
+                if (getMaskData.features[num].properties.name.indexOf(document.getElementById('search').value) != -1) {
                     //console.log(getMaskData.features[num].properties.name);
                     result += '<div class="result-link pointer border p-1" data-loa="' + getMaskData.features[num].geometry.coordinates[1] + '" data-geo="' + getMaskData.features[num].geometry.coordinates[0] + '">' + getMaskData.features[num].properties.name + '</div>'
                 };
@@ -124,8 +126,8 @@
 
             for (let x = 0; x < document.querySelectorAll('.result-link').length; x++) {
                 document.querySelectorAll('.result-link')[x].addEventListener('click', () => {
-                	console.log(document.querySelectorAll('.result-link')[x].dataset.loa);
-                	console.log(document.querySelectorAll('.result-link')[x].dataset.geo);
+                    console.log(document.querySelectorAll('.result-link')[x].dataset.loa);
+                    console.log(document.querySelectorAll('.result-link')[x].dataset.geo);
                     map.setView([document.querySelectorAll('.result-link')[x].dataset.loa, document.querySelectorAll('.result-link')[x].dataset.geo], 25);
                 });
             };
