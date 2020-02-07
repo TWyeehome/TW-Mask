@@ -31,7 +31,7 @@
         ;
     }
     </style>
-    <title>WHO 理你啊 !</title>
+    <title>WHO 理你啊 ! 台灣口罩數量查詢網</title>
 </head>
 
 <body class="container">
@@ -51,7 +51,7 @@
             </div>
             <div class="col-md mt-3">
                 <div class="font-weight-bolder">資料更新頻率 -</div>
-                <div>每 10 分鐘一次</div>
+                <div>每 30 秒一次</div>
             </div>
         </div>
     </article>
@@ -156,6 +156,16 @@
     }
 
     L.control.watermark({ position: 'bottomleft' }).addTo(map);
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157993084-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-157993084-1');
     </script>
 </body>
 
