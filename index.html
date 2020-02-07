@@ -35,9 +35,9 @@
     <h1 class="text-center my-3">WHO 理你啊 ! 台灣口罩數量查詢網</h1>
     <div class="row">
         <div class="col-md-3 mb-3">
-            <div class="d-flex mb-2">
-                <input id="search" class="form-control" type="text">
-                <button id="btn-search" class="btn btn-primary btn-mid">搜尋藥局</button>
+            <div class="d-flex">
+                <input id="search" class="form-control rounded-0" type="text">
+                <button id="btn-search" class="btn btn-primary btn-mid rounded-0">搜尋藥局</button>
             </div>
             <div id="search-result">
             </div>
@@ -115,13 +115,16 @@
 
             // 開始搜尋
             let result = '';
+            let resultTotal = 0;
             for (let num = 0; num < getMaskData.features.length; num++) {
                 if (getMaskData.features[num].properties.name.indexOf(document.getElementById('search').value) != -1) {
                     //console.log(getMaskData.features[num].properties.name);
-                    result += '<a href="#" class="result-link d-block border rounded" style="padding:2px 8px;" data-loa="' + getMaskData.features[num].geometry.coordinates[1] + '" data-geo="' + getMaskData.features[num].geometry.coordinates[0] + '">' + getMaskData.features[num].properties.name + '</a>'
+                    result += '<a href="#" class="result-link d-block border" style="padding:2px 8px; margin:2px 0;" data-loa="' + getMaskData.features[num].geometry.coordinates[1] + '" data-geo="' + getMaskData.features[num].geometry.coordinates[0] + '">' + getMaskData.features[num].properties.name + '</a>';
+                    resultTotal += 1;
                 };
             };
-            document.getElementById('search-result').innerHTML = result;
+
+            document.getElementById('search-result').innerHTML = '<div style="margin:16px 0 14px 0;">得到筆數 : ' + resultTotal + '</div>' + result;
 
             for (let x = 0; x < document.querySelectorAll('.result-link').length; x++) {
                 document.querySelectorAll('.result-link')[x].addEventListener('click', () => {
