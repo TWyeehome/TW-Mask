@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=no, shrink-to-fit=no, minimum-scale=1, maximum-scale=1">
     <meta property="og:title" content="WHO 理你啊 ! 台灣口罩數量查詢網">
     <meta property="og:description" content="WHO 理你啊 ! 台灣口罩數量查詢網">
@@ -13,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="WHO.jpg">
     <style>
-    #map {
+        #map {
         height: 800px;
     }
 
@@ -34,22 +33,17 @@
 
 <body class="container">
     <h1 class="text-center my-3">WHO 理你啊 ! 台灣口罩數量查詢網</h1>
+
     <div id="map" style="border:2px solid black"></div>
     <article class="mx-3">
         <div class="row">
             <div class="col-md mt-3">
-                <div class="font-weight-bolder">判定條件 -</div>
-                <div>口罩數為 0 : 紅標</div>
-                <div>口罩數小於 100 : 黃標</div>
-                <div>口罩數大於 100 : 綠標</div>
-            </div>
-            <div class="col-md mt-3">
                 <div class="font-weight-bolder">下載區 -</div>
-                <a href="http://data.nhi.gov.tw/Datasets/Download.ashx?rid=A21030000I-D50001-001&l=https://data.nhi.gov.tw/resource/mask/maskdata.csv" class="btn btn-success mt-1" title="點擊下載">健保特約機構口罩剩餘數量明細清單.CSV</a>
+                <a href="http://data.nhi.gov.tw/Datasets/Download.ashx?rid=A21030000I-D50001-001&l=https://data.nhi.gov.tw/resource/mask/maskdata.csv" class="btn btn-success mt-1 px-2" title="點擊下載">健保特約機構口罩剩餘數量明細清單.CSV</a>
             </div>
             <div class="col-md mt-3">
                 <div class="font-weight-bolder">資料更新頻率 -</div>
-                <div>每 30 秒一次</div>
+                <div class="mt-1">每 30 秒一次</div>
             </div>
         </div>
     </article>
@@ -59,18 +53,34 @@
         <div class="text-white">email : <a href="mailto:k123456789370@yahoo.com.tw" class="text-white">k123456789370@yahoo.com.tw</a></div>
         <div class="text-white">資料來源 : 健保署</div>
     </footer>
-    <script src="NPTest.json"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet-src.js.map"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet-src.js"></script>
+    <script src="Control.FullScreen.js"></script>
     <script>
-    var map = L.map("map");
-
-    L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png', {
+    // 地圖設定
+    let base = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png', {
         minZoom: 7,
         maxZoom: 18
-    }).addTo(map);
+    });
 
-    map.setView([23.817844, 119.990917], 5);
+    let map = L.map("map", {
+        layers: [base],
+        center: new L.LatLng(23.817844, 119.990917),
+        zoom: 5,
+        fullscreenControl: true,
+        fullscreenControlOptions: { // optional
+            title: "Show me the fullscreen !",
+            titleCancel: "Exit fullscreen mode"
+        }
+    });
+
+    // 地圖縮放
+    map.on('enterFullscreen', function() {
+        if (window.console) window.console.log('enterFullscreen');
+    });
+    map.on('exitFullscreen', function() {
+        if (window.console) window.console.log('exitFullscreen');
+    });
 
     let myRenderer = L.canvas({ padding: 0 });
 
@@ -82,9 +92,6 @@
     getMask.onload = () => {
         let getMaskData = JSON.parse(getMask.responseText);
         console.log(getMaskData.features);
-        console.log(getMaskData.features.length);
-        console.log(getMaskData.features[0].properties.name);
-
 
         for (var i = 0; i < getMaskData.features.length; i++) {
             // 內文
@@ -133,17 +140,25 @@
         };
     };
 
+    // 搜尋藥局
+    document.getElementById('btn-search').addEventListener('click', () => {
+        document.getElementById('search').value;
+        if (document.getElementById('search').value == '') {
+            return
+        };
+
+    });
+
     // layer
     L.Control.Watermark = L.Control.extend({
         onAdd: function(map) {
-            var img = L.DomUtil.create('div');
-
-            img.src = '../../docs/images/logo.png';
-            img.style.width = '200px';
-
-            return img;
+            let layer = L.DomUtil.create('div');
+            layer.innerHTML =
+                '<div>口罩數為 0 : 紅標</div>' +
+                '<div>口罩數小於 100 : 黃標</div>' +
+                '<div>口罩數大於 100 : 綠標</div>';
+            return layer;
         },
-
         onRemove: function(map) {
             // Nothing to do here
         }
@@ -151,7 +166,7 @@
 
     L.control.watermark = function(opts) {
         return new L.Control.Watermark(opts);
-    }
+    };
 
     L.control.watermark({ position: 'bottomleft' }).addTo(map);
     </script>
