@@ -79,9 +79,9 @@
         center: new L.LatLng(23.817844, 119.990917),
         zoom: 5,
         fullscreenControl: true,
-        fullscreenControlOptions: {
-            title: "全螢幕",
-            titleCancel: "離開全螢幕"
+        fullscreenControlOptions: { // optional
+            title: '全螢幕',
+            titleCancel: '離開全螢幕'
         }
     });
 
@@ -121,14 +121,13 @@
                     result += '<a href="#" class="result-link d-block border rounded" style="padding:2px 8px;" data-loa="' + getMaskData.features[num].geometry.coordinates[1] + '" data-geo="' + getMaskData.features[num].geometry.coordinates[0] + '">' + getMaskData.features[num].properties.name + '</a>'
                 };
             };
-            document.getElementById('search-result').innerHTML = ''
-            result;
+            document.getElementById('search-result').innerHTML = result;
 
             for (let x = 0; x < document.querySelectorAll('.result-link').length; x++) {
                 document.querySelectorAll('.result-link')[x].addEventListener('click', () => {
                     //console.log(document.querySelectorAll('.result-link')[x].dataset.loa);
                     //console.log(document.querySelectorAll('.result-link')[x].dataset.geo);
-                    map.setView([document.querySelectorAll('.result-link')[x].dataset.loa, document.querySelectorAll('.result-link')[x].dataset.geo], 40);
+                    map.setView([document.querySelectorAll('.result-link')[x].dataset.loa, document.querySelectorAll('.result-link')[x].dataset.geo], 25);
                 });
             };
         };
