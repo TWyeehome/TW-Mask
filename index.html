@@ -136,7 +136,7 @@
             for (let num = 0; num < getMaskData.features.length; num++) {
                 if (getMaskData.features[num].properties.name.indexOf(document.getElementById('search').value) != -1) {
                     //console.log(getMaskData.features[num].properties.name);
-                    result += '<a href="#" class="result-link d-block border" style="padding:2px 8px; margin:2px 0;" data-loa="' + getMaskData.features[num].geometry.coordinates[1] + '" data-geo="' + getMaskData.features[num].geometry.coordinates[0] + '">' + getMaskData.features[num].properties.name + '</a>';
+                    result += '<a href="#" class="result-link d-block border" style="padding:2px 8px; margin:2px 0;" data-info="' + num + '">' + getMaskData.features[num].properties.name + '</a>';
                     resultTotal += 1;
                 };
             };
@@ -147,7 +147,9 @@
                 document.querySelectorAll('.result-link')[x].addEventListener('click', () => {
                     //console.log(document.querySelectorAll('.result-link')[x].dataset.loa);
                     //console.log(document.querySelectorAll('.result-link')[x].dataset.geo);
-                    map.setView([document.querySelectorAll('.result-link')[x].dataset.loa, document.querySelectorAll('.result-link')[x].dataset.geo], 25);
+                    //console.log(document.querySelectorAll('.result-link')[x].dataset.info);
+                    map.setView([getMaskData.features[document.querySelectorAll('.result-link')[x].dataset.info].geometry.coordinates[1], getMaskData.features[document.querySelectorAll('.result-link')[x].dataset.info].geometry.coordinates[0]], 25);
+                    markers[document.querySelectorAll('.result-link')[x].dataset.info].openPopup();
                 });
             };
         };
@@ -167,6 +169,7 @@
         });
 
         // 院染
+        let markers = [];
         for (var i = 0; i < getMaskData.features.length; i++) {
             // 內文
             infoStr =
@@ -176,7 +179,6 @@
                 '<div class="border-bottom my-1">成人口罩數量 : ' + getMaskData.features[i].properties.mask_adult + '</div>' +
                 '<div class="border-bottom">兒童口罩數量 : ' + getMaskData.features[i].properties.mask_child + '</div>' +
                 '<div class="border-bottom my-1">營業時間 : ' + getMaskData.features[i].properties.available + '</div>' +
-
                 '<div class="border-bottom">備註 : ' + getMaskData.features[i].properties.note + '</div>';
 
             // marker 顏色判定
@@ -187,7 +189,8 @@
                     color: "black",
                     opacity: 1
                 };
-                L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr)
+                markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
+
             } else if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child < 100) {
                 circleMarkerOptions = {
                     weight: 1,
@@ -195,7 +198,7 @@
                     color: "black",
                     opacity: 1
                 };
-                L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr)
+                markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
             } else {
                 circleMarkerOptions = {
                     weight: 1,
@@ -203,7 +206,7 @@
                     color: "black",
                     opacity: 1
                 };
-                L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr)
+                markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
             };
         };
 
