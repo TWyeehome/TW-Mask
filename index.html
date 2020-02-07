@@ -33,8 +33,19 @@
 
 <body class="container">
     <h1 class="text-center my-3">WHO 理你啊 ! 台灣口罩數量查詢網</h1>
-
-    <div id="map" style="border:2px solid black"></div>
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="d-flex mb-2">
+                <input id="search" class="form-control" type="text">
+                <button id="btn-search" class="btn btn-primary btn-mid px-2">搜尋藥局</button>
+            </div>
+            <div id="search-result">
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div id="map" style="border:2px solid black"></div>
+        </div>
+    </div>
     <article class="mx-3">
         <div class="row">
             <div class="col-md mt-3">
@@ -93,6 +104,35 @@
         let getMaskData = JSON.parse(getMask.responseText);
         console.log(getMaskData.features);
 
+        // 搜尋藥局
+        document.getElementById('btn-search').addEventListener('click', () => {
+        	map.setView([23.817844, 119.990917], 5);
+            if (document.getElementById('search').value == '') {
+                alert('請輸入關鍵字齁!');
+                return
+            };
+            // 開始搜尋
+            console.log('開始搜尋');
+            let result = '';
+            for (let num = 0; num < getMaskData.features.length; num++) {
+                if (getMaskData.features[num].properties.name.indexOf(document.getElementById('search').value) == 0) {
+                    //console.log(getMaskData.features[num].properties.name);
+                    result += '<div class="result-link pointer border p-1" data-loa="' + getMaskData.features[num].geometry.coordinates[1] + '" data-geo="' + getMaskData.features[num].geometry.coordinates[0] + '">' + getMaskData.features[num].properties.name + '</div>'
+                };
+            };
+            document.getElementById('search-result').innerHTML = result;
+
+            for (let x = 0; x < document.querySelectorAll('.result-link').length; x++) {
+                document.querySelectorAll('.result-link')[x].addEventListener('click', () => {
+                	console.log(document.querySelectorAll('.result-link')[x].dataset.loa);
+                	console.log(document.querySelectorAll('.result-link')[x].dataset.geo);
+                    map.setView([document.querySelectorAll('.result-link')[x].dataset.loa, document.querySelectorAll('.result-link')[x].dataset.geo], 25);
+                });
+            };
+
+            //map.panTo(new L.LatLng(40.737, -73.923));
+        });
+
         for (var i = 0; i < getMaskData.features.length; i++) {
             // 內文
             infoStr =
@@ -139,8 +179,6 @@
             ];
         };
     };
-
- 
 
     // layer
     L.Control.Watermark = L.Control.extend({
