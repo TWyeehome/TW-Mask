@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=no, shrink-to-fit=no, minimum-scale=1, maximum-scale=1">
     <meta property="og:title" content="WHO 理你啊 ! 台灣口罩數量查詢網">
     <meta property="og:description" content="WHO 理你啊 ! 台灣口罩數量查詢網">
@@ -30,6 +31,26 @@
         #meme {
         	display: none;
         }
+    }
+
+    #mapSearchContainer {
+        position: fixed;
+        top: 20px;
+        right: 40px;
+        height: 30px;
+        width: 180px;
+        z-index: 110;
+        font-size: 10pt;
+        color: #5d5d5d;
+        border: solid 1px #bbb;
+        background-color: #f8f8f8;
+    }
+
+    .pointer {
+        position: absolute;
+        top: 86px;
+        left: 60px;
+        z-index: 99999;
     }
     </style>
     <title>WHO 理你啊 ! 台灣口罩數量查詢網</title>
@@ -71,6 +92,8 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet-src.js.map"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet-src.js"></script>
+    <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+    <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
     <script src="Control.FullScreen.js"></script>
     <script>
     // meme hover
@@ -159,15 +182,6 @@
             search();
         });
 
-        // 搜尋藥局
-        document.body.addEventListener('keydown', (e) => {
-            switch (e.keyCode) {
-                case 13:
-                    search();
-                    break;
-            };
-        });
-
         // 院染
         let markers = [];
         for (var i = 0; i < getMaskData.features.length; i++) {
@@ -239,6 +253,12 @@
     };
 
     L.control.watermark({ position: 'bottomleft' }).addTo(map);
+
+
+    // 找地點
+    var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+
+    var results = new L.LayerGroup().addTo(map);
     </script>
     <!-- GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157993084-1"></script>
