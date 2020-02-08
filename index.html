@@ -39,11 +39,11 @@
     <h1 class="text-center my-3">WHO 理你啊 ! 台灣口罩數量查詢網</h1>
     <div class="row">
         <div class="col-md-3 mb-3">
-            <div class="d-flex">
+            <div class="d-flex" style="border-top:1px solid black;border-right:1px solid black;border-left:1px solid black;">
                 <input id="search" class="form-control rounded-0" type="text">
                 <button id="btn-search" class="btn btn-primary btn-mid rounded-0">搜尋藥局</button>
             </div>
-            <div id="search-result" style="height: 200px;overflow:scroll;">
+            <div id="search-result" style="height: 200px;overflow:scroll;border:1px solid black;">
             </div>
             <img src="daway.jpg" alt="daway" id="meme" class="w-100 mt-3" style="border:1px solid black" onmouseover="mouseOver()" onmouseout="mouseOut()">
         </div>
@@ -141,7 +141,7 @@
                 };
             };
 
-            document.getElementById('search-result').innerHTML = '<div style="margin:16px 0 14px 0;">得到筆數 : ' + resultTotal + '</div>' + result;
+            document.getElementById('search-result').innerHTML = '<div class="text-center" style="margin:16px 0 14px 0;">得到筆數 : ' + resultTotal + '</div>' + result;
 
             for (let x = 0; x < document.querySelectorAll('.result-link').length; x++) {
                 document.querySelectorAll('.result-link')[x].addEventListener('click', () => {
