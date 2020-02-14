@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=no, shrink-to-fit=no, minimum-scale=1, maximum-scale=1">
     <meta property="og:title" content="WHO 理你啊 ! 台灣口罩數量查詢網">
-    <meta property="og:description" content="WHO 理你啊 ! 台灣口罩數量查詢網">
+    <meta property="og:description" content="台灣口罩數量查詢網">
     <meta name='description' content="WHO 理你啊 ! 台灣口罩數量查詢網">
     <meta property="og:type" content="website">
     <meta property="og:image" content="WHO.jpg">
@@ -53,45 +53,45 @@
         z-index: 99999;
     }
     </style>
-    <!-- AD -->
-    <script data-ad-client="ca-pub-9532695323872131" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <title>WHO 理你啊 ! 台灣口罩數量查詢網</title>
 </head>
 
-<body class="container">
+<body>
     <h1 class="text-center my-3">WHO 理你啊 ! 台灣口罩數量查詢網</h1>
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <div class="d-flex" style="border-top:1px solid black;border-right:1px solid black;border-left:1px solid black;">
-                <input id="search" class="form-control rounded-0" type="text">
-                <button id="btn-search" class="btn btn-primary btn-mid rounded-0">搜尋藥局</button>
-            </div>
-            <div id="search-result" style="height: 200px;overflow:scroll;border:1px solid black;">
-            </div>
-            <img src="daway.jpg" alt="daway" id="meme" class="w-100 mt-3" style="border:1px solid black" onmouseover="mouseOver()" onmouseout="mouseOut()">
-        </div>
-        <div class="col-md-9">
-            <div id="map" style="border:1px solid black"></div>
-            <div class="pointer"></div> <!-- partial -->
-            <article class="mx-3">
-                <div class="row">
-                    <div class="col-md mt-3">
-                        <div class="font-weight-bolder">下載區 -</div>
-                        <a href="http://data.nhi.gov.tw/Datasets/Download.ashx?rid=A21030000I-D50001-001&l=https://data.nhi.gov.tw/resource/mask/maskdata.csv" class="btn btn-success mt-1 px-2" title="點擊下載">健保特約機構口罩剩餘數量明細清單.CSV</a>
-                    </div>
-                    <div class="col-md mt-3">
-                        <div class="font-weight-bolder">資料更新頻率 -</div>
-                        <div class="mt-1">每 30 秒一次</div>
-                    </div>
+    <section class="container">
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <div class="d-flex" style="border-top:1px solid black;border-right:1px solid black;border-left:1px solid black;">
+                    <input id="search" class="form-control rounded-0" type="text">
+                    <button id="btn-search" class="btn btn-primary btn-mid rounded-0">搜尋藥局</button>
                 </div>
-            </article>
+                <div id="search-result" style="height: 200px;overflow:scroll;overflow-x:hidden;border:1px solid black;">
+                </div>
+                <img src="daway.jpg" alt="daway" id="meme" class="w-100 mt-3" style="border:1px solid black" onmouseover="mouseOver()" onmouseout="mouseOut()">
+            </div>
+            <div class="col-md-9">
+                <div id="map" style="border:1px solid black"></div>
+                <div class="pointer"></div> <!-- partial -->
+                <article class="mx-3">
+                    <div class="row">
+                        <div class="col-md mt-3">
+                            <div class="font-weight-bolder">下載區 -</div>
+                            <a href="http://data.nhi.gov.tw/Datasets/Download.ashx?rid=A21030000I-D50001-001&l=https://data.nhi.gov.tw/resource/mask/maskdata.csv" class="btn btn-success mt-1 px-2" title="點擊下載">健保特約機構口罩剩餘數量明細清單.CSV</a>
+                        </div>
+                        <div class="col-md mt-3">
+                            <div class="font-weight-bolder">資料更新頻率 -</div>
+                            <div class="mt-1">每 30 秒一次</div>
+                        </div>
+                    </div>
+                </article>
+            </div>
         </div>
-    </div>
-    <div class="text-center mt-5 mb-1">感謝中華民國行政院政務委員唐鳳的推動</div>
-    <footer class="bg-secondary text-center py-2">
+    </section>
+    <footer class="bg-secondary text-center mt-5 py-2">
+        <div class="text-white">資料來源 : 健保署</div>
         <div class="text-white">維護者 : <a href="https://github.com/TWyeehome" class="text-white" title="安安" target="_blank">Michael</a></div>
         <div class="text-white">email : <a href="mailto:k123456789370@yahoo.com.tw" class="text-white">k123456789370@yahoo.com.tw</a></div>
-        <div class="text-white">資料來源 : 健保署</div>
+        <div class="text-white">感謝中華民國行政院政務委員唐鳳的推動</div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet-src.js.map"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet-src.js"></script>
@@ -108,9 +108,6 @@
         document.getElementById('meme').src = 'daway.jpg';
     };
 
-    document.getElementById('meme').addEventListener('onmouseover', () => {
-        console.log(123)
-    })
     // 地圖設定
     let base = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png', {
         minZoom: 7,
@@ -126,14 +123,6 @@
             title: '全螢幕',
             titleCancel: '離開全螢幕'
         }
-    });
-
-    // 地圖縮放
-    map.on('enterFullscreen', function() {
-        if (window.console) window.console.log('enterFullscreen');
-    });
-    map.on('exitFullscreen', function() {
-        if (window.console) window.console.log('exitFullscreen');
     });
 
     let myRenderer = L.canvas({ padding: 0 });
@@ -174,6 +163,8 @@
                     //console.log(document.querySelectorAll('.result-link')[x].dataset.loa);
                     //console.log(document.querySelectorAll('.result-link')[x].dataset.geo);
                     //console.log(document.querySelectorAll('.result-link')[x].dataset.info);
+
+                    // 彈跳 info window
                     map.setView([getMaskData.features[document.querySelectorAll('.result-link')[x].dataset.info].geometry.coordinates[1], getMaskData.features[document.querySelectorAll('.result-link')[x].dataset.info].geometry.coordinates[0]], 25);
                     markers[document.querySelectorAll('.result-link')[x].dataset.info].openPopup();
                 });
@@ -243,7 +234,7 @@
                 '<div>口罩數為 0 : 紅標</div>' +
                 '<div>口罩數小於 100 : 黃標</div>' +
                 '<div>口罩數大於 100 : 綠標</div>' +
-                '</section>';
+            '</section>';
             return layer;
         },
         onRemove: function(map) {
@@ -273,7 +264,6 @@
 
     gtag('config', 'UA-157993084-1');
     </script>
-
 </body>
 
 </html>
