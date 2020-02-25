@@ -33,7 +33,7 @@ getMask.open('GET', 'https://raw.githubusercontent.com/kiang/pharmacies/master/j
 getMask.send(null);
 getMask.onload = () => {
     let getMaskData = JSON.parse(getMask.responseText);
-    console.log(getMaskData.features);
+    //console.log(getMaskData.features);
 
     // 搜尋藥局 function
     function search() {
@@ -100,12 +100,20 @@ getMask.onload = () => {
         } else if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child < 100) {
             circleMarkerOptions = {
                 weight: 1,
+                fillColor: "orange",
+                color: "black",
+                opacity: 1
+            };
+            markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
+        } else if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child >= 100 && getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child <= 400) {
+            circleMarkerOptions = {
+                weight: 1,
                 fillColor: "yellow",
                 color: "black",
                 opacity: 1
             };
             markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
-        } else {
+        } else if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child > 400) {
             circleMarkerOptions = {
                 weight: 1,
                 fillColor: "green",
@@ -113,7 +121,7 @@ getMask.onload = () => {
                 opacity: 1
             };
             markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
-        };
+        }
     };
 
     // 取得座標
@@ -129,10 +137,11 @@ L.Control.Watermark = L.Control.extend({
     onAdd: function(map) {
         let layer = L.DomUtil.create('div');
         layer.innerHTML =
-            '<section class="bg-white rounded p-1" style="opacity:0.8;">' +
-            '<div>口罩數為 0 : 紅標</div>' +
-            '<div>口罩數小於 100 : 黃標</div>' +
-            '<div>口罩數大於 100 : 綠標</div>' +
+            '<section class="bg-white rounded p-1" style="opacity:0.95;">' +
+            '<div>紅標 : 口罩數為 0</div>' +
+            '<div>橙標 : 口罩數為 <100</div>' +
+            '<div>黃標 : 口罩數為 100~400</div>' +
+            '<div>綠標 : 口罩數為 >400</div>' +
             '</section>';
         return layer;
     },
@@ -152,3 +161,10 @@ L.control.watermark({ position: 'bottomleft' }).addTo(map);
 var searchControl = new L.esri.Controls.Geosearch().addTo(map);
 
 var results = new L.LayerGroup().addTo(map);
+
+// 定位
+lc = L.control.locate({
+    strings: {
+        title: "定位"
+    }
+}).addTo(map);
