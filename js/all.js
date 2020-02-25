@@ -1,4 +1,3 @@
-
 // 地圖設定
 let base = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     minZoom: 7,
@@ -83,36 +82,40 @@ getMask.onload = () => {
 
         // marker 顏色判定
         if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child == 0) {
-            circleMarkerOptions = {
-                weight: 1,
+            circleMarkerOptions = { 
+                weight: 1.6,
                 fillColor: "red",
                 color: "black",
-                opacity: 1
+                opacity: 1,
+                fillOpacity:.4
             };
             markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
 
         } else if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child < 100) {
             circleMarkerOptions = {
-                weight: 1,
+                weight: 1.6,
                 fillColor: "orange",
                 color: "black",
-                opacity: 1
+                opacity: 1,
+                fillOpacity:.4
             };
             markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
         } else if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child >= 100 && getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child <= 400) {
             circleMarkerOptions = {
-                weight: 1,
+                weight: 1.6,
                 fillColor: "yellow",
                 color: "black",
-                opacity: 1
+                opacity: 1,
+                fillOpacity:.4
             };
             markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
         } else if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child > 400) {
             circleMarkerOptions = {
-                weight: 1,
+                weight: 1.6,
                 fillColor: "green",
                 color: "black",
-                opacity: 1
+                opacity: 1,
+                fillOpacity:.4
             };
             markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
         }
