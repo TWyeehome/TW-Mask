@@ -733,11 +733,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
     width: 275px
 }
 
-.geocoder-control-input.geocoder-control-loading {
-    background-image: url(img/loading.gif);
-    background-size: 26px
-}
-
 .geocoder-control-input:focus {
     outline: 0;
     cursor: text
