@@ -17,6 +17,10 @@
     <h1 class="text-center my-3">WHO 理你啊 ! 台灣口罩數量查詢網</h1>
     <section class="container">
         <div class="row">
+            <div class="col-md-9 mb-3">
+                <div id="map" style="border:1px solid black"></div>
+                <div class="pointer"></div>
+            </div>
             <div class="col-md-3 mb-3">
                 <div class="d-flex" style="border-top:1px solid black;border-right:1px solid black;border-left:1px solid black;">
                     <input id="search" class="form-control rounded-0" type="text">
@@ -24,28 +28,21 @@
                 </div>
                 <div id="search-result" style="height: 200px;overflow:scroll;overflow-x:hidden;border:1px solid black;">
                 </div>
-                <img src="daway.jpg" alt="daway" id="meme" class="w-100 mt-3" style="border:1px solid black" onmouseover="mouseOver()" onmouseout="mouseOut()">
-            </div>
-            <div class="col-md-9">
-                <div id="map" style="border:1px solid black"></div>
-                <div class="pointer"></div> <!-- partial -->
-                <article class="mx-3">
-                    <div class="row">
-                        <div class="col-md mt-3">
-                            <div class="font-weight-bolder">下載區 -</div>
-                            <a href="http://data.nhi.gov.tw/Datasets/Download.ashx?rid=A21030000I-D50001-001&l=https://data.nhi.gov.tw/resource/mask/maskdata.csv" class="btn btn-success mt-1 px-2" title="點擊下載">健保特約機構口罩剩餘數量明細清單.CSV</a>
-                        </div>
-                        <div class="col-md mt-3">
-                            <div class="font-weight-bolder">資料更新頻率 -</div>
-                            <div class="mt-1">每 30 秒一次</div>
-                        </div>
-                        <div class="col-md-12 mt-3">
-                            <!-- FB -->
-                            <div class="fb-like" data-href="https://twyeehome.github.io/TW-Mask/" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
-                            <!-- FB -->
-                        </div>
+                <div class="row">
+                    <div class="col-12 mt-3">
+                        <div class="font-weight-bolder">下載區 -</div>
+                        <a href="http://data.nhi.gov.tw/Datasets/Download.ashx?rid=A21030000I-D50001-001&l=https://data.nhi.gov.tw/resource/mask/maskdata.csv" class="btn btn-success mt-1 px-2" title="點擊下載">健保特約機構口罩剩餘數量明細清單.CSV</a>
                     </div>
-                </article>
+                    <div class="col-12 mt-3">
+                        <div class="font-weight-bolder">資料更新頻率 -</div>
+                        <div class="mt-1">每 30 秒一次</div>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <!-- FB -->
+                        <div class="fb-like" data-href="https://twyeehome.github.io/TW-Mask/" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
+                        <!-- FB -->
+                    </div>
+                </div>
             </div>
         </div>
     </section>

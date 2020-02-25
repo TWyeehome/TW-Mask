@@ -1,11 +1,3 @@
-// meme hover
-function mouseOver() {
-    document.getElementById('meme').src = 'way.jpg';
-};
-
-function mouseOut() {
-    document.getElementById('meme').src = 'daway.jpg';
-};
 
 // 地圖設定
 let base = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
