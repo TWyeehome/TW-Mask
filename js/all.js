@@ -12,7 +12,8 @@ let map = L.map("map", {
     fullscreenControlOptions: { // optional
         title: '全螢幕',
         titleCancel: '離開全螢幕'
-    }
+    },
+    dragging: !L.Browser.mobile
 });
 
 let myRenderer = L.canvas({
@@ -82,12 +83,12 @@ getMask.onload = () => {
 
         // marker 顏色判定
         if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child == 0) {
-            circleMarkerOptions = { 
+            circleMarkerOptions = {
                 weight: 1.6,
                 fillColor: "red",
                 color: "black",
                 opacity: 1,
-                fillOpacity:.4
+                fillOpacity: .4
             };
             markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
 
@@ -97,7 +98,7 @@ getMask.onload = () => {
                 fillColor: "orange",
                 color: "black",
                 opacity: 1,
-                fillOpacity:.4
+                fillOpacity: .4
             };
             markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
         } else if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child >= 100 && getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child <= 400) {
@@ -106,7 +107,7 @@ getMask.onload = () => {
                 fillColor: "yellow",
                 color: "black",
                 opacity: 1,
-                fillOpacity:.4
+                fillOpacity: .4
             };
             markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
         } else if (getMaskData.features[i].properties.mask_adult + getMaskData.features[i].properties.mask_child > 400) {
@@ -115,7 +116,7 @@ getMask.onload = () => {
                 fillColor: "green",
                 color: "black",
                 opacity: 1,
-                fillOpacity:.4
+                fillOpacity: .4
             };
             markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
         }
