@@ -8,7 +8,7 @@ function mouseOut() {
 };
 
 // 地圖設定
-let base = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png', {
+let base = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     minZoom: 7,
     maxZoom: 18
 });
@@ -24,7 +24,9 @@ let map = L.map("map", {
     }
 });
 
-let myRenderer = L.canvas({ padding: 0 });
+let myRenderer = L.canvas({
+    padding: 0
+});
 
 let circleMarkerOptions = null;
 let infoStr = '';
@@ -75,7 +77,7 @@ getMask.onload = () => {
         search();
     });
 
-    // 院染
+    // 渲染
     let markers = [];
     for (var i = 0; i < getMaskData.features.length; i++) {
         // 內文
@@ -132,7 +134,7 @@ getMask.onload = () => {
     };
 };
 
-// 地圖 layer
+// 圖例
 L.Control.Watermark = L.Control.extend({
     onAdd: function(map) {
         let layer = L.DomUtil.create('div');
@@ -153,14 +155,9 @@ L.Control.Watermark = L.Control.extend({
 L.control.watermark = function(opts) {
     return new L.Control.Watermark(opts);
 };
-
-L.control.watermark({ position: 'bottomleft' }).addTo(map);
-
-
-// 找地點
-var searchControl = new L.esri.Controls.Geosearch().addTo(map);
-
-var results = new L.LayerGroup().addTo(map);
+L.control.watermark({
+    position: 'bottomleft'
+}).addTo(map);
 
 // 定位
 lc = L.control.locate({
@@ -168,3 +165,8 @@ lc = L.control.locate({
         title: "定位"
     }
 }).addTo(map);
+
+var results = new L.LayerGroup().addTo(map);
+
+// 找地點 
+let searchControl = new L.esri.Controls.Geosearch().addTo(map);
