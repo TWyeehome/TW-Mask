@@ -12,8 +12,7 @@ let map = L.map("map", {
     fullscreenControlOptions: { // optional
         title: '全螢幕',
         titleCancel: '離開全螢幕'
-    },
-    dragging: L.Browser.mobile
+    }
 });
 
 let myRenderer = L.canvas({
