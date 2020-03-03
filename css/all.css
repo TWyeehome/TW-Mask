@@ -503,11 +503,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
     box-shadow: none
 }
 
-.leaflet-touch .leaflet-control-layers,
-.leaflet-touch .leaflet-bar {
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    background-clip: padding-box
-}
+
 
 .leaflet-popup {
     position: absolute;
