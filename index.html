@@ -15,18 +15,18 @@
 
 <body>
     <h1 id="head-title" class="text-center my-3">WHO 理你啊 ! 台灣口罩數量查詢網</h1>
-    <section class="container footer-bottom">
+    <section id="app" class="container footer-bottom">
         <div class="row">
             <div class="col-md-9 mb-3">
-                <div id="map" style="border:1px solid black"></div>
+                <div id="map" style="border: 1px solid black;"></div>
                 <div class="pointer"></div>
             </div>
             <div class="col-md-3 mb-3">
                 <div class="d-flex" style="border-top:1px solid black;border-right:1px solid black;border-left:1px solid black;">
-                    <input id="search" class="form-control rounded-0" type="text">
-                    <button id="btn-search" class="btn btn-primary btn-mid rounded-0">搜尋藥局</button>
+                    <input id="search" class="form-control rounded-0" type="text" v-on:keyup.enter="map_search">
+                    <button id="btn-search" class="btn btn-primary btn-mid rounded-0" v-on:click="map_search">搜尋藥局</button>
                 </div>
-                <div id="search-result" style="height: 200px;overflow:scroll;overflow-x:hidden;border:1px solid black;">
+                <div id="search-result" style="height: 200px; overflow:scroll; overflow-x:hidden; border:1px solid black;">
                 </div>
                 <div class="row">
                     <div class="col-12 mt-3">
