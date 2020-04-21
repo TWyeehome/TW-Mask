@@ -4,7 +4,7 @@
 <head>
     <title>WHO 理你啊 ! 台灣口罩數量查詢網</title>
     <meta charset="UTF-8">
-    <meta name='description' content="台灣口罩數量查詢網">
+    <meta name='description' content="台灣口罩數量查詢">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=no, shrink-to-fit=no, minimum-scale=1, maximum-scale=1">
     <meta property="og:title" content="WHO 理你啊 ! 台灣口罩數量查詢網">
     <meta property="og:description" content="台灣口罩數量查詢網">
@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-3 mb-3">
                 <div class="d-flex">
-                    <input id="search" class="form-control rounded-0" type="text" v-on:keyup.enter="map_search">
+                    <input id="search" class="form-control rounded-0" type="text" v-on:keyup.enter="map_search" v-model:value="search">
                     <button id="btn-search" class="btn btn-primary btn-mid rounded-0" v-on:click="map_search">搜尋藥局</button>
                 </div>
                 <div id="search-result" class="border border-top-0" style="height: 240px; overflow:scroll; overflow-x:hidden;">

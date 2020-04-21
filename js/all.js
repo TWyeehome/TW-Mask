@@ -1,6 +1,7 @@
 var app = new Vue({
     el: '#app',
     data: {
+        search: '',
         map_ajax: '',
         markers: [],
     },
@@ -51,11 +52,11 @@ var app = new Vue({
             };
         },
         map_search: function() {
-            if (document.getElementById('search').value == '') {
+            if (this.search == '') {
                 alert('請輸入關鍵字齁!');
                 return
             };
-            
+
             // 地圖回歸中心點
             map.setView([23.817844, 119.990917], 5);
 
@@ -63,7 +64,7 @@ var app = new Vue({
             let result = '';
             let resultTotal = 0;
             for (let num = 0; num < this.map_ajax.features.length; num++) {
-                if (this.map_ajax.features[num].properties.name.indexOf(document.getElementById('search').value) != -1) {
+                if (this.map_ajax.features[num].properties.name.indexOf(this.search) != -1) {
                     //console.log(this.map_ajax.features[num].properties.county);
                     result += '<a href="#" class="result-link d-block border" style="padding:2px 8px; margin:2px 0;" data-info="' + num + '">' + this.map_ajax.features[num].properties.name + ' - ' + this.map_ajax.features[num].properties.county + '</a>';
                     resultTotal += 1;
