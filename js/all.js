@@ -38,7 +38,7 @@ var app = new Vue({
                             opacity: 1,
                             fillOpacity: .4
                         };
-                        this.markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
+                        this.markers.push(L.circleMarker(get_random_latlng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
 
                     } else if (get_mask_data.features[i].properties.mask_adult + get_mask_data.features[i].properties.mask_child < 100) {
                         circleMarkerOptions = {
@@ -48,7 +48,7 @@ var app = new Vue({
                             opacity: 1,
                             fillOpacity: .4
                         };
-                        this.markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
+                        this.markers.push(L.circleMarker(get_random_latlng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
                     } else if (get_mask_data.features[i].properties.mask_adult + get_mask_data.features[i].properties.mask_child >= 100 && get_mask_data.features[i].properties.mask_adult + get_mask_data.features[i].properties.mask_child <= 400) {
                         circleMarkerOptions = {
                             weight: 1.6,
@@ -57,7 +57,7 @@ var app = new Vue({
                             opacity: 1,
                             fillOpacity: .4
                         };
-                        this.markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
+                        this.markers.push(L.circleMarker(get_random_latlng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
                     } else if (get_mask_data.features[i].properties.mask_adult + get_mask_data.features[i].properties.mask_child > 400) {
                         circleMarkerOptions = {
                             weight: 1.6,
@@ -66,12 +66,12 @@ var app = new Vue({
                             opacity: 1,
                             fillOpacity: .4
                         };
-                        this.markers.push(L.circleMarker(getRandomLatLng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
+                        this.markers.push(L.circleMarker(get_random_latlng(), circleMarkerOptions).addTo(map).bindPopup(infoStr));
                     }
                 };
 
                 // 取得座標
-                function getRandomLatLng() {
+                function get_random_latlng() {
                     return [
                         get_mask_data.features[i].geometry.coordinates[1], get_mask_data.features[i].geometry.coordinates[0]
                     ];
@@ -92,8 +92,8 @@ var app = new Vue({
             let resultTotal = 0;
             for (let num = 0; num < map_search_data.features.length; num++) {
                 if (map_search_data.features[num].properties.name.indexOf(document.getElementById('search').value) != -1) {
-                    //console.log(map_search_data.features[num].properties.name);
-                    result += '<a href="#" class="result-link d-block border" style="padding:2px 8px; margin:2px 0;" data-info="' + num + '">' + map_search_data.features[num].properties.name + '</a>';
+                    //console.log(map_search_data.features[num].properties.county);
+                    result += '<a href="#" class="result-link d-block border" style="padding:2px 8px; margin:2px 0;" data-info="' + num + '">' + map_search_data.features[num].properties.name + ' - ' + map_search_data.features[num].properties.county + '</a>';
                     resultTotal += 1;
                 };
             };

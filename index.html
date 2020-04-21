@@ -2,31 +2,31 @@
 <html lang="en">
 
 <head>
+    <title>WHO 理你啊 ! 台灣口罩數量查詢網</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/all.css">
+    <meta name='description' content="台灣口罩數量查詢網">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=no, shrink-to-fit=no, minimum-scale=1, maximum-scale=1">
     <meta property="og:title" content="WHO 理你啊 ! 台灣口罩數量查詢網">
     <meta property="og:description" content="台灣口罩數量查詢網">
-    <meta name='description' content="WHO 理你啊 ! 台灣口罩數量查詢網">
     <meta property="og:type" content="website">
     <meta property="og:image" content="WHO.jpg">
-    <title>WHO 理你啊 ! 台灣口罩數量查詢網</title>
+    <link rel="stylesheet" href="css/all.css">
 </head>
 
 <body>
-    <h1 id="head-title" class="text-center my-3">WHO 理你啊 ! 台灣口罩數量查詢網</h1>
-    <section id="app" class="container footer-bottom">
+    <h1 id="head-title" class="d-none text-center my-3">WHO 理你啊 ! 台灣口罩數量查詢網</h1>
+    <section id="app" class="container mt-3 footer-bottom">
         <div class="row">
             <div class="col-md-9 mb-3">
-                <div id="map" style="border: 1px solid black;"></div>
+                <div id="map" class="border"></div>
                 <div class="pointer"></div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="d-flex" style="border-top:1px solid black;border-right:1px solid black;border-left:1px solid black;">
+                <div class="d-flex">
                     <input id="search" class="form-control rounded-0" type="text" v-on:keyup.enter="map_search">
                     <button id="btn-search" class="btn btn-primary btn-mid rounded-0" v-on:click="map_search">搜尋藥局</button>
                 </div>
-                <div id="search-result" style="height: 200px; overflow:scroll; overflow-x:hidden; border:1px solid black;">
+                <div id="search-result" class="border border-top-0" style="height: 240px; overflow:scroll; overflow-x:hidden;">
                 </div>
                 <div class="row">
                     <div class="col-12 mt-3">
@@ -48,9 +48,7 @@
     </section>
     <footer class="bg-secondary text-center py-3">
         <div class="text-white">資料來源 : 健保署</div>
-        <div class="text-white">維護者 : <a href="https://github.com/TWyeehome" class="text-white" title="安安" target="_blank">Michael</a></div>
         <div class="text-white">email : <a href="mailto:k123456789370@yahoo.com.tw" class="text-white">k123456789370@yahoo.com.tw</a></div>
-        <div class="text-white">感謝中華民國行政院政務委員唐鳳的推動</div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet-src.js.map"></script>
     <script src="js/tools.js?20200303"></script>

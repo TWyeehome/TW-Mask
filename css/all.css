@@ -807,7 +807,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
 /* main */
 #map {
-    height: 600px;
+    height: 800px;
 }
 
 @media (max-width: 576px) {
